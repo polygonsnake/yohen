@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şarkı İsteği</title>
+    <script>
+        async function sendSongRequest() {
+            const songRequest = document.getElementById('songRequest').value;
+            if (!songRequest) {
+                alert("Lütfen bir şarkı isteği girin.");
+                return;
+            }
+
+            const response = await fetch('http://localhost:3000', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ songRequest })
+            });
+
+            if (response.ok) {
+                alert("Şarkı isteği başarıyla gönderildi.");
+                document.getElementById('songRequest').value = '';
+            } else {
+                alert("Şarkı isteği gönderilirken bir hata oluştu.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Şarkı İsteği Gönder</h1>
+    <input type="text" id="songRequest" placeholder="İstediğiniz şarkıyı girin">
+    <button onclick="sendSongRequest()">Gönder</button>
+</body>
+</html>
